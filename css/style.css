@@ -1,0 +1,98 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+.container {
+    padding: 2rem;
+}
+
+.button1{
+    margin-left: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: center;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+.chart-container {
+    margin-top: -250px;
+    display: flex; /* Flexbox untuk layout horizontal */
+    justify-content: center; /* Meratakan konten secara horizontal */
+    align-items: center; /* Memastikan chart sejajar secara vertikal */
+    gap: 10rem; /* Memberikan jarak antar chart */
+    padding: 1rem;
+}
+
+canvas {
+    max-width: 50%; /* Lebar maksimal setiap chart */
+    height: 20px; /* Tinggi yang sama untuk memastikan sejajar */
+}
+
+.filters {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.bar-chart-container {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.bar-chart {
+    max-width: 30%; /* Sama dengan pie chart untuk keseimbangan */
+}
+
+.shoe-brands {
+    display: flex;
+    justify-content: center; /* Center the items horizontally */
+    align-items: center; /* Center the items vertically */
+    gap: 20px; /* Space between the labels */
+    margin-top: 100px;
+}
+
+.shoe-brands span {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+}
+
+.shoe-brands .nike { background-color: red; }
+.shoe-brands .adidas { background-color: blue; }
+.shoe-brands .puma { background-color: green; }
+.shoe-brands .vans { background-color: orange; }
+.shoe-brands .converse { background-color: purple; }
+.shoe-brands .reebok { background-color: pink; }
+.shoe-brands .piero { background-color: yellow; }

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Penjualan Sepatu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Dashboard Penjualan Sepatu</h1>
+    </header>
+
+    <div class="container">
+        <input type="file" id="csvFile" accept=".csv">
+        <button onclick="loadCSV()">Muat Data</button>
+
+        <div class="filters">
+            <label for="filterMonth">Pilih Bulan:</label>
+            <select id="filterMonth">
+                <option value="">Semua</option>
+                <option value="Januari">Januari</option>
+                <option value="Februari">Februari</option>
+                <option value="Maret">Maret</option>
+                <option value="April">April</option>
+                <option value="Mei">Mei</option>
+                <option value="Juni">Juni</option>
+                <option value="Juli">Juli</option>
+                <option value="Agustus">Agustus</option>
+                <option value="September">September</option>
+                <option value="Oktober">Oktober</option>
+                <option value="November">November</option>
+                <option value="Desember">Desember</option>
+            </select>
+            <button class="button1" onclick="applyFilters()">Terapkan Filter</button>
+        </div>
+
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>Bulan</th>
+                    <th>Nike</th>
+                    <th>Adidas</th>
+                    <th>Puma</th>
+                    <th>Vans</th>
+                    <th>Converse</th>
+                    <th>Reebok</th>
+                    <th>Piero</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot id="totalRow" style="display: none;"></tfoot>
+        </table>
+
+        <div class="shoe-brands">
+            <span class="nike">Nike</span>
+            <span class="adidas">Adidas</span>
+            <span class="puma">Puma</span>
+            <span class="vans">Vans</span>
+            <span class="converse">Converse</span>
+            <span class="reebok">Reebok</span>
+            <span class="piero">Piero</span>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="salesPieChart" class="pie-chart"></canvas>
+            <canvas id="salesBarChart" class="bar-chart"></canvas>
+        </div>
+    </div>
+
+    <script src="js/index.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+</body>
+</html>
