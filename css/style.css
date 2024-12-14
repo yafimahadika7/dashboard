@@ -119,3 +119,62 @@ th {
 .button7{
     margin-left: 50rem;
 }
+
+@media (max-width: 600px) {
+    /* Header */
+    header h1 {
+        font-size: 1.4rem; /* Mengurangi ukuran font header */
+        padding: 0.5rem; /* Menambahkan sedikit padding untuk header */
+    }
+
+    /* Container */
+    .container {
+        padding: 1rem; /* Mengurangi padding di container */
+    }
+
+    /* Tabel */
+    table {
+        font-size: 0.8rem; /* Mengurangi ukuran font pada tabel */
+    }
+
+    th, td {
+        padding: 0.6rem; /* Mengurangi padding pada tabel */
+    }
+
+    /* Tombol */
+    .button1, .button7 {
+        margin-left: 0; /* Menghilangkan margin kiri pada tombol */
+        width: 100%; /* Membuat tombol memenuhi lebar layar */
+        margin-bottom: 1rem; /* Memberikan jarak antar tombol */
+    }
+
+    /* Filter */
+    .filters {
+        flex-direction: column; /* Menata filter secara vertikal */
+        align-items: flex-start; /* Menyelaraskan elemen filter ke kiri */
+        gap: 0.5rem; /* Mengurangi jarak antar elemen filter */
+    }
+
+    /* Chart */
+    .chart-container {
+        display: block; /* Menampilkan diagram dalam blok */
+        padding: 1rem 0; /* Menambah padding vertikal */
+    }
+
+    canvas {
+        max-width: 90%; /* Mengurangi lebar canvas */
+        height: auto; /* Menjaga proporsi tinggi */
+        margin: 0 auto; /* Menjaga chart di tengah */
+    }
+
+    /* Table yang lebih responsif untuk layar sempit */
+    table {
+        font-size: 0.75rem; /* Mengurangi ukuran font pada tabel */
+        overflow-x: auto; /* Memungkinkan tabel di-scroll horizontal */
+        display: block; /* Mengubah tabel menjadi blok */
+    }
+
+    .filters select, .filters button {
+        width: 100%; /* Membuat select dan button memenuhi lebar */
+    }
+}
