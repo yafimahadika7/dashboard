@@ -2,11 +2,13 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
+    background: url('../img/BG-02.png') no-repeat center center fixed; /* Menambahkan gambar latar */
+    background-size: cover; /* Memastikan gambar menutupi seluruh layar */
+    height: 100vh; /* Menetapkan tinggi body untuk 100% dari layar */
 }
 
 header {
-    background-color: #007bff;
+    margin-top: 30px;
     color: white;
     padding: 1rem;
     text-align: center;
@@ -14,10 +16,6 @@ header {
 
 .container {
     padding: 2rem;
-}
-
-.button1{
-    margin-left: 30px;
 }
 
 table {
@@ -28,6 +26,12 @@ table {
 
 table, th, td {
     border: 1px solid #ddd;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), /* Blur utama */
+                0 4px 16px rgba(0, 0, 0, 0.1); /* Blur tambahan */
+    
+    /* Tambahkan efek Glassmorphism (opsional) */
+    backdrop-filter: blur(10px); /* Efek blur latar belakang */
+    -webkit-backdrop-filter: blur(10px); /* Untuk Safari */
 }
 
 th, td {
@@ -36,30 +40,28 @@ th, td {
 }
 
 th {
-    background-color: #007bff;
+    background-color: rgba(250, 247, 247, 0.116);
     color: white;
 }
 
 .chart-container {
-    display: flex; /* Mengatur layout horizontal */
-    flex-wrap: wrap; /* Memastikan diagram tetap rapi di layar kecil */
-    justify-content: center; /* Meratakan secara horizontal */
-    align-items: flex-start; /* Mengatur elemen di atas */
-    gap: 2rem; /* Memberikan jarak antar diagram */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
     padding: 2rem 0;
-    background-color: #ffffff; /* Latar belakang putih untuk kontras */
-    border-radius: 10px; /* Membuat sudut elemen lebih lembut */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Memberikan efek bayangan */
+    border-radius: 20px;
 }
 
 canvas {
-    max-width: 45%; /* Lebar maksimum 45% dari kontainer */
-    height: auto; /* Menjaga rasio diagram */
-    padding: 1rem; /* Memberikan jarak di dalam diagram */
-    border: 1px solid #ddd; /* Tambahkan garis batas halus */
-    border-radius: 10px; /* Membuat tepi melengkung */
-    background-color: #f9f9f9; /* Latar belakang lembut untuk diagram */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Bayangan ringan */
+    max-width: 45%;
+    height: auto;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Menambahkan bayangan pada diagram */
 }
 
 .bar-chart-container, .pie-chart-container {
@@ -70,7 +72,7 @@ canvas {
 
 .bar-chart, .pie-chart {
     width: 100%; /* Memastikan ukuran proporsional di dalam kontainer */
-    max-width: 500px; /* Ukuran maksimum untuk diagram */
+    max-width: 1000px; /* Ukuran maksimum untuk diagram */
     height: auto; /* Menjaga rasio */
     margin: 0 auto; /* Menempatkan di tengah */
 }
@@ -81,8 +83,13 @@ canvas {
     align-items: center; /* Menyelaraskan secara vertikal */
     gap: 1rem; /* Jarak antar elemen */
     padding: 1rem 0; /* Jarak atas dan bawah */
-    background-color: #f8f9fa; /* Warna latar lembut */
     border-radius: 10px; /* Membuat sudut melengkung */
+
+}
+
+.filters label{
+    font-weight: bold;
+    color: white;
 }
 
 .filters select, .filters button {
@@ -95,7 +102,7 @@ canvas {
 }
 
 .filters button:hover, .filters select:hover {
-    background-color: #007bff; /* Warna biru saat hover */
+    background-color: #c5131c; /* Warna biru saat hover */
     color: white; /* Warna teks putih */
 }
 
@@ -103,6 +110,7 @@ header h1 {
     font-size: 2rem; /* Ukuran teks header */
     font-weight: bold; /* Teks tebal */
     margin: 0; /* Hilangkan margin default */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Menambahkan bayangan pada teks */
 }
 
 table {
@@ -120,61 +128,117 @@ th {
     margin-left: 50rem;
 }
 
-@media (max-width: 600px) {
-    /* Header */
+/* Tambahkan Media Queries untuk perangkat kecil (max-width 768px) */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px; /* Ukuran font lebih kecil */
+        padding: 0.5rem;
+    }
+
+    header {
+        padding: 0.5rem;
+        text-align: center;
+    }
+
     header h1 {
-        font-size: 1.4rem; /* Mengurangi ukuran font header */
-        padding: 0.5rem; /* Menambahkan sedikit padding untuk header */
+        font-size: 1.5rem; /* Header lebih kecil */
     }
 
-    /* Container */
     .container {
-        padding: 1rem; /* Mengurangi padding di container */
+        padding: 1rem;
     }
 
-    /* Tabel */
-    table {
-        font-size: 0.8rem; /* Mengurangi ukuran font pada tabel */
-    }
-
-    th, td {
-        padding: 0.6rem; /* Mengurangi padding pada tabel */
-    }
-
-    /* Tombol */
-    .button1, .button7 {
-        margin-left: 0; /* Menghilangkan margin kiri pada tombol */
-        width: 100%; /* Membuat tombol memenuhi lebar layar */
-        margin-bottom: 1rem; /* Memberikan jarak antar tombol */
-    }
-
-    /* Filter */
     .filters {
-        flex-direction: column; /* Menata filter secara vertikal */
-        align-items: flex-start; /* Menyelaraskan elemen filter ke kiri */
-        gap: 0.5rem; /* Mengurangi jarak antar elemen filter */
-    }
-
-    /* Chart */
-    .chart-container {
-        display: block; /* Menampilkan diagram dalam blok */
-        padding: 1rem 0; /* Menambah padding vertikal */
-    }
-
-    canvas {
-        max-width: 90%; /* Mengurangi lebar canvas */
-        height: auto; /* Menjaga proporsi tinggi */
-        margin: 0 auto; /* Menjaga chart di tengah */
-    }
-
-    /* Table yang lebih responsif untuk layar sempit */
-    table {
-        font-size: 0.75rem; /* Mengurangi ukuran font pada tabel */
-        overflow-x: auto; /* Memungkinkan tabel di-scroll horizontal */
-        display: block; /* Mengubah tabel menjadi blok */
+        flex-direction: column; /* Susun vertikal */
+        gap: 0.5rem; /* Jarak antar elemen lebih kecil */
     }
 
     .filters select, .filters button {
-        width: 100%; /* Membuat select dan button memenuhi lebar */
+        width: 100%; /* Elemen penuh di layar kecil */
     }
+
+    table {
+        font-size: 12px; /* Ukuran teks lebih kecil */
+        overflow-x: auto; /* Tambahkan scroll horizontal */
+        display: block; /* Tabel lebih fleksibel di layar kecil */
+    }
+
+    th, td {
+        padding: 0.5rem; /* Padding lebih kecil */
+    }
+
+    th {
+        font-size: 0.8rem; /* Ukuran header lebih kecil */
+    }
+
+    .chart-container {
+        flex-direction: column; /* Susun vertikal untuk grafik */
+        gap: 2rem; /* Jarak antar grafik */
+    }
+
+    canvas {
+        max-width: 90%; /* Grafik menggunakan 90% lebar layar */
+        height: auto; /* Menjaga rasio grafik */
+        padding: 0.5rem; /* Kurangi padding untuk lebih banyak ruang grafik */
+    }
+
+    .button7 {
+        margin-left: 0;
+        margin-top: 1rem; /* Tambahkan margin atas untuk jarak */
+        align-self: center; /* Posisikan di tengah */
+    }
+}
+
+/* Tambahkan Media Queries untuk perangkat sangat kecil (max-width 480px) */
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.2rem; /* Ukuran header lebih kecil */
+    }
+
+    .filters select, .filters button {
+        font-size: 0.9rem; /* Ukuran teks lebih kecil */
+    }
+
+    th, td {
+        font-size: 0.75rem; /* Ukuran font dalam tabel lebih kecil */
+    }
+
+    canvas {
+        max-width: 100%; /* Grafik menyesuaikan penuh */
+        height: auto;
+        padding: 0;
+    }
+
+    .filters {
+        gap: 2rem; /* Jarak antar elemen lebih kecil */
+    }
+}   
+
+/* Mengatur warna teks di dalam tabel menjadi putih */
+table tbody td {
+    color: white; /* Mengubah warna teks menjadi putih */
+}
+
+/* Menambahkan latar belakang gelap untuk memastikan teks terlihat jelas */
+table tbody tr:nth-child(odd) {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), /* Blur utama */
+                0 4px 16px rgba(0, 0, 0, 0.1); /* Blur tambahan */
+    
+    /* Tambahkan efek Glassmorphism (opsional) */
+    backdrop-filter: blur(10px); /* Efek blur latar belakang */
+    -webkit-backdrop-filter: blur(10px); /* Untuk Safari */
+}
+
+table tbody tr:nth-child(even) {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), /* Blur utama */
+                0 4px 16px rgba(0, 0, 0, 0.1); /* Blur tambahan */
+    
+    /* Tambahkan efek Glassmorphism (opsional) */
+    backdrop-filter: blur(10px); /* Efek blur latar belakang */
+    -webkit-backdrop-filter: blur(10px); /* Untuk Safari */ /* Warna latar belakang gelap untuk baris genap */
+}
+
+/* Tambahan opsional untuk mengatur hover */
+table tbody tr:hover {
+    background-color: rgba(250, 247, 247, 0.116);
 }

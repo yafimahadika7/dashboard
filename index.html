@@ -15,23 +15,16 @@
     </header>
 
     <div class="container">
-        <input type="file" id="csvFile" accept=".csv">
-        <button onclick="loadCSV()">Muat Data</button>
-
-        <a href="/file/sample.csv" class="button7" download="contoh_file.csv">
-            <button>Contoh File</button>
-        </a>
-        
         <div class="filters">
             <label for="filterYear">Pilih Tahun:</label>
             <select id="filterYear">
-            <option value="">Semua</option>
-            <option value="2022">2022</option>
-            <option value="2023">2023</option>
+                <option value="all">Semua</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
             </select>
             <button class="button1" onclick="applyFilters()">Terapkan Filter</button>
         </div>
-
+    
         <table id="data-table">
             <thead>
                 <tr>
@@ -56,11 +49,11 @@
             <tbody></tbody>
             <tfoot id="totalRow" style="display: none;"></tfoot>
         </table>
-
+    
         <div class="chart-container">
             <canvas id="salesBarChart" class="bar-chart"></canvas>
         </div>
-    </div>
+    </div>    
 
     <script src="js/index.js"></script>
     <script src="js/chart.js"></script>

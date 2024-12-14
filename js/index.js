@@ -1,40 +1,54 @@
+// Deklarasi elemen HTML
 const dataTable = document.getElementById('data-table').querySelector('tbody');
-const totalRow = document.getElementById('totalRow');
-const salesPieChartCanvas = document.getElementById('salesPieChart');
 const salesBarChartCanvas = document.getElementById('salesBarChart');
-let data = [];
-let salesPieChart;
+
+// Deklarasi variabel global untuk grafik
 let salesBarChart;
 
-function loadCSV() {
-    const fileInput = document.getElementById('csvFile');
-    const file = fileInput.files[0];
-
-    if (!file) {
-        alert('Silakan pilih file CSV.');
-        return;
+// Data penjualan
+let data = [
+    {
+        "Tahun": "2022",
+        "Januari": "4017",
+        "Februari": "6135",
+        "Maret": "7091",
+        "April": "5841",
+        "Mei": "5036",
+        "Juni": "4547",
+        "Juli": "3467",
+        "Agustus": "3970",
+        "September": "6313",
+        "Oktober": "3595",
+        "November": "9207",
+        "Desember": "5945"
+    },
+    {
+        "Tahun": "2023",
+        "Januari": "2416",
+        "Februari": "4136",
+        "Maret": "7935",
+        "April": "8004",
+        "Mei": "9505",
+        "Juni": "5026",
+        "Juli": "6108",
+        "Agustus": "6343",
+        "September": "9404",
+        "Oktober": "9280",
+        "November": "9287",
+        "Desember": "8689"
     }
+];
 
-    Papa.parse(file, {
-        complete: function (results) {
-            console.log("Data yang dimuat:", results.data);  // Menampilkan hasil parsing
-            data = results.data;
-            displayTable(data);
-            generateCharts(data);
-            calculateTotals(data);
-        },
-        header: true, // Menganggap baris pertama sebagai header
-        skipEmptyLines: true  // Melewatkan baris kosong
-    });
-}
-
+// Fungsi untuk menerapkan filter berdasarkan tahun
 function applyFilters() {
-    const filterYear = document.getElementById('filterYear').value;  // Menambahkan filter berdasarkan tahun
+    const filterYear = document.getElementById('filterYear').value;
 
-    const filteredData = data.filter(row => {
-        const year = row['Tahun'];
-        return !filterYear || year === filterYear;  // Filter berdasarkan tahun
-    });
+    let filteredData = [];
+    if (filterYear === "all") {
+        filteredData = data;
+    } else {
+        filteredData = data.filter(row => row['Tahun'] === filterYear);
+    }
 
     if (filteredData.length === 0) {
         alert('Data tidak ditemukan untuk tahun yang dipilih.');
@@ -42,21 +56,20 @@ function applyFilters() {
     }
 
     displayTable(filteredData);
-    generateCharts(filteredData, filterYear);  // Kirim data dan tahun yang difilter ke generateCharts
+    generateCharts(filteredData, filterYear);
 }
 
-
+// Fungsi untuk menampilkan data dalam tabel
 function displayTable(data) {
     dataTable.innerHTML = '';
     data.forEach(row => {
         const tr = document.createElement('tr');
-        Object.values(row).forEach(cell => {
+        Object.keys(row).forEach(key => {
             const td = document.createElement('td');
-            // Cek apakah nilai adalah angka
-            if (!isNaN(cell)) {
-                td.textContent = parseFloat(cell).toLocaleString('id-ID');  // Memformat angka dengan pemisah ribuan titik
+            if (key !== 'Tahun' && !isNaN(row[key])) {
+                td.textContent = parseFloat(row[key]).toLocaleString('id-ID');
             } else {
-                td.textContent = cell;  // Jika bukan angka, tampilkan langsung
+                td.textContent = row[key]; // Tidak diformat untuk tahun
             }
             tr.appendChild(td);
         });
@@ -64,56 +77,43 @@ function displayTable(data) {
     });
 }
 
+// Fungsi untuk membuat/memperbarui grafik
 function generateCharts(data, filterYear) {
-    if (salesBarChart) salesBarChart.destroy();
+    if (salesBarChart) {
+        salesBarChart.destroy();
+    }
 
-    // Label bulan
     const labels = [
         'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
         'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
     ];
 
-    // Filter data per tahun
     let year2022 = data.find(row => row['Tahun'] === '2022');
     let year2023 = data.find(row => row['Tahun'] === '2023');
 
-    // Pastikan hanya grafik yang sesuai dengan filter yang ditampilkan
-    let values2022 = [];
-    let values2023 = [];
+    let values2022 = year2022 ? labels.map(month => parseFloat(year2022[month]) || 0) : [];
+    let values2023 = year2023 ? labels.map(month => parseFloat(year2023[month]) || 0) : [];
 
-    if (filterYear === '2023') {
-        // Ambil nilai penjualan untuk 2023 saja
-        values2023 = labels.map(month => parseFloat(year2023[month]) || 0);
-    } else if (filterYear === '2022') {
-        // Ambil nilai penjualan untuk 2022 saja
-        values2022 = labels.map(month => parseFloat(year2022[month]) || 0);
-    } else {
-        // Ambil nilai penjualan untuk kedua tahun jika tidak ada filter
-        values2022 = labels.map(month => parseFloat(year2022[month]) || 0);
-        values2023 = labels.map(month => parseFloat(year2023[month]) || 0);
-    }
-
-    // Konfigurasi bar chart
     salesBarChart = new Chart(salesBarChartCanvas, {
         type: 'bar',
         data: {
-            labels: labels,  // Label bulan
+            labels: labels,
             datasets: [
                 {
-                    label: '2022',
-                    data: values2022,  // Data penjualan untuk 2022
-                    backgroundColor: 'rgba(54, 162, 235, 0.6)',  // Warna biru
+                    label: '2022', // Tetap sebagai string
+                    data: values2022,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1,
-                    hidden: filterYear === '2023'  // Sembunyikan dataset 2022 jika filter 2023
+                    hidden: filterYear === '2023'
                 },
                 {
-                    label: '2023',
-                    data: values2023,  // Data penjualan untuk 2023
-                    backgroundColor: 'rgba(255, 99, 132, 0.6)',  // Warna merah
+                    label: '2023', // Tetap sebagai string
+                    data: values2023,
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
                     borderColor: 'rgba(255, 99, 132, 1)',
                     borderWidth: 1,
-                    hidden: filterYear === '2022'  // Sembunyikan dataset 2023 jika filter 2022
+                    hidden: filterYear === '2022'
                 }
             ]
         },
@@ -131,28 +131,23 @@ function generateCharts(data, filterYear) {
             },
             scales: {
                 y: {
-                    beginAtZero: true,  // Mulai dari 0
+                    beginAtZero: true,
                     ticks: {
-                        stepSize: 2500,  // Interval antar angka pada sumbu Y
+                        stepSize: 2500,
                         callback: function(value) {
-                            return value.toLocaleString('id-ID');  // Menampilkan angka dengan pemisah ribuan titik
+                            return value.toLocaleString('id-ID'); // Pemformatan hanya untuk nilai
                         }
                     },
-                    max: 10000  // Batas maksimum sumbu Y
-                },
-                x: {
-                    // Custom tick formatting untuk label pada sumbu X (bulan)
-                    ticks: {
-                        callback: function(value, index, ticks) {
-                            // Menampilkan tahun 2022 dan 2023 sebagai teks tanpa pemisah ribuan
-                            if (value === '2022' || value === '2023') {
-                                return value.toString();  // Format tahun sebagai teks
-                            }
-                            return value;  // Label bulan tetap ditampilkan seperti semula
-                        }
-                    }
+                    max: 10000
                 }
             }
         }
     });
-}       
+}
+
+
+
+// Jalankan fungsi applyFilters saat halaman selesai dimuat
+document.addEventListener('DOMContentLoaded', () => {
+    applyFilters();
+});
