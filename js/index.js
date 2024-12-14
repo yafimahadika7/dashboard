@@ -135,12 +135,24 @@ function generateCharts(data, filterYear) {
                     ticks: {
                         stepSize: 2500,  // Interval antar angka pada sumbu Y
                         callback: function(value) {
-                            return value.toLocaleString();  // Menampilkan angka dengan pemisah ribuan
+                            return value.toLocaleString('id-ID');  // Menampilkan angka dengan pemisah ribuan titik
                         }
                     },
                     max: 10000  // Batas maksimum sumbu Y
+                },
+                x: {
+                    // Custom tick formatting untuk label pada sumbu X (bulan)
+                    ticks: {
+                        callback: function(value, index, ticks) {
+                            // Menampilkan tahun 2022 dan 2023 sebagai teks tanpa pemisah ribuan
+                            if (value === '2022' || value === '2023') {
+                                return value.toString();  // Format tahun sebagai teks
+                            }
+                            return value;  // Label bulan tetap ditampilkan seperti semula
+                        }
+                    }
                 }
             }
         }
     });
-}
+}       
